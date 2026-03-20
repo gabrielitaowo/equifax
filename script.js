@@ -20,7 +20,8 @@ var clientsDB = {
 
     '1234567890': {
         codigo: '1234',
-        nombre: 'Franco',
+        nombre: 'Franco Fernández',
+        usuario: 'Franco',
         cedula: '1234567890',
         score: 893
     }
@@ -31,19 +32,19 @@ var countdownTimer = null;
 var timeRemaining = 1200;
 
 function handleLogin() {
-    var cedula = document.getElementById('cedula').value.trim();
+    var inputUser = document.getElementById('cedula').value.trim(); // ahora este campo puede ser usuario o cédula
     var codigo = document.getElementById('codigo').value.trim();
 
-    if (!cedula || !codigo) {
-        alert('Por favor ingresa tu nombre o cédula y el código');
+    if (!inputUser || !codigo) {
+        alert('Por favor ingresa tu usuario o cédula y el código');
         return;
     }
 
-    var client = clientsDB[cedula];
+    var client = clientsDB[inputUser];
 
     if (!client) {
         for (var key in clientsDB) {
-            if (clientsDB[key].nombre.toLowerCase().includes(cedula.toLowerCase())) {
+            if (clientsDB[key].usuario && clientsDB[key].usuario.toLowerCase() === inputUser.toLowerCase()) {
                 client = clientsDB[key];
                 break;
             }
@@ -51,7 +52,7 @@ function handleLogin() {
     }
 
     if (!client) {
-        alert('Nombre o cédula no encontrado');
+        alert('Usuario o cédula no encontrado');
         return;
     }
 
@@ -63,6 +64,7 @@ function handleLogin() {
     currentUser = client;
     showDashboard();
 }
+
 
 
 function showDashboard() {
