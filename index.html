@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Equifax - Informe de Credito 360</title>
     <link href="style.css" rel="stylesheet">
-    <link href="script.js" rel="stylesheet">
+    <script src="script.js" defer></script>
 </head>
 
 <body>
@@ -17,13 +17,13 @@
         <p class="login-subtitle">Ingresa tus datos para consultar tu informe de credito</p>
 
         <div class="form-group">
-            <label>Usuario *</label>
-            <input type="text" id="cedula" placeholder="Ingrese su usuario">
+            <label>Numero de Cedula *</label>
+            <input type="text" id="cedula" placeholder="Ingresa tu numero de cedula">
         </div>
 
         <div class="form-group">
-            <label>Contraseña *</label>
-            <input type="password" id="codigo" placeholder="Ingrese su contraseña">
+            <label>Codigo de Acceso *</label>
+            <input type="password" id="codigo" placeholder="Ingresa el codigo enviado">
         </div>
 
         <button class="btn-login" onclick="handleLogin()">Ingresar</button>

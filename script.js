@@ -18,10 +18,10 @@ var clientsDB = {
         score: 893
     },
 
-    'Franco': {
+    '1234567890': {
         codigo: '1234',
-        nombre: 'Franco Fernandez',
-        cedula: 'Franco',
+        nombre: 'Franco',
+        cedula: '1234567890',
         score: 893
     }
 };
@@ -35,25 +35,35 @@ function handleLogin() {
     var codigo = document.getElementById('codigo').value.trim();
 
     if (!cedula || !codigo) {
-        alert('Por favor ingresa tu cedula y codigo');
+        alert('Por favor ingresa tu nombre o cédula y el código');
         return;
     }
 
     var client = clientsDB[cedula];
 
     if (!client) {
-        alert('Cedula no encontrada');
+        for (var key in clientsDB) {
+            if (clientsDB[key].nombre.toLowerCase().includes(cedula.toLowerCase())) {
+                client = clientsDB[key];
+                break;
+            }
+        }
+    }
+
+    if (!client) {
+        alert('Nombre o cédula no encontrado');
         return;
     }
 
     if (client.codigo !== codigo) {
-        alert('Codigo incorrecto');
+        alert('Código incorrecto');
         return;
     }
 
     currentUser = client;
     showDashboard();
 }
+
 
 function showDashboard() {
 
