@@ -24,7 +24,15 @@ var clientsDB = {
         usuario: 'Franco',
         cedula: '1234567890',
         score: 893
+    },
+    '0987654321': {
+        codigo: '4321',              // este es el "contraseña" o código de acceso
+        nombre: 'Ana Pérez',         // nombre completo
+        usuario: 'Ana',              // nombre de usuario opcional
+        cedula: '0987654321',        // cédula o identificador
+        score: 900                   // puntaje que quieras asignar
     }
+
 };
 
 var currentUser = null;
@@ -153,27 +161,26 @@ function downloadReport() {
     window.print();
 
     document.body.innerHTML = `
-    <div class="report-wrapper">
-    <div class="report-card">
-        <h1 class="report-title">📄 Reporte Generado</h1>
-        
-        <p class="report-info">
-            <strong>Nombre:</strong> ${currentUser.nombre}<br>s
-            <strong>Cédula:</strong> ${currentUser.cedula}<br>
-            <strong>Score:</strong> ${currentUser.score} puntos
-        </p>
-        
-        <p class="report-message">
-            El reporte ha sido procesado correctamente.<br>
-            Gracias por usar el sistema.
-        </p>
-        <button class="pdf-logout" onclick="handleLogout()">Cerrar Sesión</button>
+        <div class="report-wrapper">
+        <div class="report-card">
+            <h1 class="report-title">📄 Reporte Generado</h1>
+            
+            <p class="report-info">
+                <strong>Nombre:</strong> ${currentUser.nombre}<br>s
+                <strong>Cédula:</strong> ${currentUser.cedula}<br>
+                <strong>Score:</strong> ${currentUser.score} puntos
+            </p>
+            
+            <p class="report-message">
+                El reporte ha sido procesado correctamente.<br>
+                Gracias por usar el sistema.
+            </p>
+            <button class="pdf-logout" onclick="handleLogout()">Cerrar Sesión</button>
+        </div>
     </div>
-</div>
-`;
+    `;
 
 }
-
 
 document.getElementById('cedula').addEventListener('keypress', function (e) {
     if (e.key === 'Enter') {
