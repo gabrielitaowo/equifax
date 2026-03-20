@@ -16,6 +16,13 @@ var clientsDB = {
         nombre: 'ZURITA MEDRANO JHONNY ALBERTO',
         cedula: '0803575380',
         score: 893
+    },
+
+    'Franco': {
+        codigo: '1234',
+        nombre: 'Franco Fernandez',
+        cedula: 'Franco',
+        score: 893
     }
 };
 
