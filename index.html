@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Equifax - Informe de Credito 360</title>
+    <link href="style.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="login-container" id="loginScreen">
+        <div class="login-logo">EQUIFAX</div>
+        <h1 class="login-title">LOGIN EMPRESA</h1>
+        <p class="login-subtitle">Ingresa tus datos para consultar tu informe de credito</p>
+
+        <div class="form-group">
+            <label>Numero de Cedula *</label>
+            <input type="text" id="cedula" placeholder="Ingresa tu numero de cedula">
+        </div>
+
+        <div class="form-group">
+            <label>Codigo de Acceso *</label>
+            <input type="password" id="codigo" placeholder="Ingresa el codigo enviado">
+        </div>
+
+        <button class="btn-login" onclick="handleLogin()">Ingresar</button>
+
+        <p class="help-text">¿No tienes codigo? Contacta con tu asesor</p>
+
+    </div>
+
+    <div class="dashboard" id="dashboard">
+        <div class="top-nav">
+            <div class="nav-item">EMPRESA</div>
+            <div class="nav-item active">PARA MI</div>
+            <div class="nav-item">ACERCA DE NOSOTROS</div>
+        </div>
+
+        <div class="header">
+            <div class="logo-section">
+                <div class="equifax-logo">EQUIFAX</div>
+                <div>
+                    <div class="report-title">INFORME DE CREDITO</div>
+                    <div class="report-subtitle">360</div>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="header-info">
+                    <div class="date-info"><strong>Fecha de informe:</strong> <span id="currentDate"></span>
+                        <strong>Hora:</strong> <span id="currentTime"></span>
+                    </div>
+                </div>
+                <button class="btn-logout" onclick="handleLogout()">Cerrar Sesion</button>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="info-banner">
+                <div class="info-left">
+                    <div class="info-label">NOMBRE:</div>
+                    <div class="info-value" id="userName"></div>
+                </div>
+                <div class="info-right">
+                    <div class="info-label">CI:</div>
+                    <div class="info-value" id="userCI"></div>
+                </div>
+            </div>
+
+            <div class="score-section">
+                <div class="section-title">Indicadores Clave</div>
+
+                <div class="score-header">SCORE - INDICADOR DE RIESGO</div>
+
+                <div class="score-container">
+                    <div class="score-left">
+                        <div class="score-title">SCORE - INDICADOR DE RIESGO</div>
+                        <div class="score-number-big" id="scoreBig"></div>
+                        <div class="score-date">Puntaje calculado <span id="scoreDate"></span></div>
+                        <div class="score-description">
+                            El puntaje es un valor que mide el nivel de riesgo de un evaluado. Su rango va de 1 a 999,
+                            de tal manera que a mayor puntaje, menor es el riesgo del evaluado
+                        </div>
+                    </div>
+
+                    <div class="score-center">
+                        <div class="score-gauge">
+                            <div class="gauge-bg">
+                                <div class="gauge-inner"></div>
+                                <div class="gauge-number" id="scoreGauge"></div>
+                            </div>
+                        </div>
+                        <div class="gauge-labels">
+                            <span>1</span>
+                            <span>Score v1.0</span>
+                            <span>999</span>
+                        </div>
+                        <div class="gauge-info">
+                            Las variables Score se construyen con informacion historica desde septiembre 2018 a agosto
+                            2025
+                        </div>
+                    </div>
+
+                    <div class="score-right">
+                        <div class="important-note">
+                            <strong>Importante:</strong> Cada institucion financiera o casa comercial maneja sus propias
+                            politicas de otorgamiento de credito
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stats-row">
+                    <div class="stat-box">
+                        <div class="stat-percentage">87%</div>
+                        <div class="stat-label">Las personas con un Score entre 666 y 999 tienen una probabilidad de
+                            29.5% de incurrir en morosidad</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-percentage">91%</div>
+                        <div class="stat-label">El 91% de las personas en el Sistema Crediticio Ecuatoriano tienen un
+                            Score menor o igual al tuyo</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-box">
+                <div style="text-align: center; padding: 20px;">
+                    <button class="btn-download-pdf" onclick="downloadReport()">
+                        📄 DESCARGAR REPORTE EN PDF
+                    </button>
+                    <p style="color: #666; font-size: 12px; margin-top: 10px;">
+                        El reporte incluye tu score, factores de riesgo y toda la información crediticia
+                    </p>
+                </div>
+            </div>
+
+            <div class="content-box">
+                <div class="factors-section">
+                    <div class="factors-header">FACTORES QUE INFLUYEN EN SU SCORE</div>
+                    <div class="factors-subtitle">
+                        Considera unicamente deuda directa en el Sistema Crediticio Ecuatoriano<br>
+                        <strong>(-) Influencia negativa &nbsp;&nbsp;&nbsp; (+) Influencia positiva</strong>
+                    </div>
+
+                    <table class="factors-table">
+                        <tbody>
+                            <tr>
+                                <td class="factor-sign positive">(+)</td>
+                                <td class="factor-label">Numero de Atrasos Mayor a 60 dias:</td>
+                                <td class="factor-value">0</td>
+                            </tr>
+                            <tr>
+                                <td class="factor-sign positive">(+)</td>
+                                <td class="factor-label">Numero de Operaciones Historicas:</td>
+                                <td class="factor-value">0</td>
+                            </tr>
+                            <tr>
+                                <td class="factor-sign positive">(+)</td>
+                                <td class="factor-label">Numero de Operaciones Vigentes:</td>
+                                <td class="factor-value">0</td>
+                            </tr>
+                            <tr>
+                                <td class="factor-sign positive">(+)</td>
+                                <td class="factor-label">Numero de Operaciones Vencidas:</td>
+                                <td class="factor-value">0</td>
+                            </tr>
+                            <tr>
+                                <td class="factor-sign positive">(+)</td>
+                                <td class="factor-label">Numero de Operaciones que no Devenga Intereses:</td>
+                                <td class="factor-value">0</td>
+                            </tr>
+                            <tr>
+                                <td class="factor-sign positive">(+)</td>
+                                <td class="factor-label">Numero de Operaciones Vencidas Mayores a 90 dias:</td>
+                                <td class="factor-value">0</td>
+                            </tr>
+                            <tr>
+                                <td class="factor-sign positive">(+)</td>
+                                <td class="factor-label">Saldo por vencer:</td>
+                                <td class="factor-value">0.00</td>
+                            </tr>
+                            <tr>
+                                <td class="factor-sign positive">(+)</td>
+                                <td class="factor-label">Saldo vencido:</td>
+                                <td class="factor-value">0.00</td>
+                            </tr>
+                            <tr>
+                                <td class="factor-sign positive">(+)</td>
+                                <td class="factor-label">Saldo que no devenga intereses:</td>
+                                <td class="factor-value">0.00</td>
+                            </tr>
+                            <tr>
+                                <td class="factor-sign positive">(+)</td>
+                                <td class="factor-label">Saldo en demanda judicial:</td>
+                                <td class="factor-value">0.00</td>
+                            </tr>
+                            <tr>
+                                <td class="factor-sign positive">(+)</td>
+                                <td class="factor-label">Saldo en castigo:</td>
+                                <td class="factor-value">0.00</td>
+                            </tr>
+                            <tr>
+                                <td class="factor-sign positive">(+)</td>
+                                <td class="factor-label">Tiempo transcurrido desde el primer credito:</td>
+                                <td class="factor-value">0 Meses</td>
+                            </tr>
+                            <tr>
+                                <td class="factor-sign positive">(+)</td>
+                                <td class="factor-label">Numero de operaciones aperturadas en los ultimos 12 meses:</td>
+                                <td class="factor-value">0</td>
+                            </tr>
+                            <tr>
+                                <td class="factor-sign positive">(+)</td>
+                                <td class="factor-label">Saldo de deuda de nuevos creditos:</td>
+                                <td class="factor-value">0.00</td>
+                            </tr>
+                            <tr>
+                                <td class="factor-sign positive">(+)</td>
+                                <td class="factor-label">Saldo Promedio Vencido nuevos creditos:</td>
+                                <td class="factor-value">0.00</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="content-box">
+                <div class="timer-box" id="timerBox">
+                    <div class="timer-header">⏰ TIEMPO LIMITE PARA REALIZAR EL PAGO</div>
+
+                    <div class="timer-display">
+                        <div class="timer-unit">
+                            <div class="timer-number" id="minutes">60</div>
+                            <div class="timer-label">Minutos</div>
+                        </div>
+                        <div class="timer-unit">
+                            <div class="timer-number" id="seconds">00</div>
+                            <div class="timer-label">Segundos</div>
+                        </div>
+                    </div>
+
+                    <div class="warning-text">
+                        <strong>⚠️ IMPORTANTE:</strong> Si no realizas el pago dentro del tiempo limite, tu score
+                        volvera a su estado normal
+                    </div>
+
+                    <div>
+                        <div style="font-size: 14px; margin-bottom: 8px;">Valor del Servicio:</div>
+                        <div class="amount-display">$100.00 USD</div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="content-box">
+                <div class="pdf-style-box">
+                    <div class="pdf-header">
+                        <div class="pdf-logo">EQUIFAX</div>
+                        <div class="pdf-title-block">
+                            <div class="pdf-title">INFORME DE CREDITO</div>
+                            <div class="pdf-subtitle">360</div>
+                        </div>
+                        <div class="pdf-info">
+                            <div class="pdf-date">
+                                <strong>Fecha de informe:</strong> <span id="pdfDate"></span>
+                                <strong>Hora:</strong> <span id="pdfTime"></span>
+                            </div>
+                            <button class="pdf-logout" onclick="handleLogout()">Cerrar Sesión</button>
+                        </div>
+                    </div>
+
+                    <div class="pdf-body">
+                        <div class="pdf-info-banner">
+                            <div class="pdf-info-left">
+                                <div class="pdf-label">NOMBRE:</div>
+                                <div class="pdf-value" id="pdfUserName"></div>
+                            </div>
+                            <div class="pdf-info-right">
+                                <div class="pdf-label">CI:</div>
+                                <div class="pdf-value" id="pdfUserCI"></div>
+                            </div>
+                        </div>
+
+                        <div class="pdf-section">
+                            <div class="pdf-section-title">Indicadores Clave</div>
+                            <div class="pdf-score-header">SCORE - INDICADOR DE RIESGO</div>
+                            <div class="pdf-score-value" id="pdfUserScore"></div>
+                            <div class="pdf-score-date">
+                                Puntaje calculado <span id="pdfScoreDate"></span>
+                            </div>
+                            <p class="pdf-score-description">
+                                El puntaje es un valor que mide el nivel de riesgo de un evaluado.
+                                Su rango va de 1 a 999, de tal manera que a mayor puntaje, menor es el riesgo del
+                                evaluado.
+                            </p>
+
+                            <div class="pdf-score-secondary">
+                                <div class="pdf-score-mini" id="pdfUserScoreMini"></div>
+                                <p class="pdf-score-note">
+                                    Las variables Score se construyen con información histórica desde septiembre 2018 a
+                                    agosto 2025.
+                                </p>
+                                <div class="pdf-score-important">
+                                    <strong>Importante:</strong> Cada institución financiera o casa comercial maneja sus
+                                    propias políticas de otorgamiento de crédito.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var clientsDB = {
+            '0502982549': {
+                codigo: '2549',
+                nombre: 'HEREDIA CATOTA MARCO VINICIO',
+                cedula: '0502982549',
+                score: 897
+            },
+            '0802148635': {
+                codigo: '8635',
+                nombre: 'TANDAZO REGALADO PATRICIO ALEXANDER',
+                cedula: '0802148635',
+                score: 905
+            },
+            '0803575380': {
+                codigo: '5380',
+                nombre: 'ZURITA MEDRANO JHONNY ALBERTO',
+                cedula: '0803575380',
+                score: 893
+            }
+        };
+
+        var currentUser = null;
+        var countdownTimer = null;
+        var timeRemaining = 1200;
+
+        function handleLogin() {
+            var cedula = document.getElementById('cedula').value.trim();
+            var codigo = document.getElementById('codigo').value.trim();
+
+            if (!cedula || !codigo) {
+                alert('Por favor ingresa tu cedula y codigo');
+                return;
+            }
+
+            var client = clientsDB[cedula];
+
+            if (!client) {
+                alert('Cedula no encontrada');
+                return;
+            }
+
+            if (client.codigo !== codigo) {
+                alert('Codigo incorrecto');
+                return;
+            }
+
+            currentUser = client;
+            showDashboard();
+        }
+
+        function showDashboard() {
+
+            document.getElementById('pdfUserName').textContent = currentUser.nombre;
+            document.getElementById('pdfUserCI').textContent = currentUser.cedula;
+            document.getElementById('pdfUserScore').textContent = currentUser.score;
+
+            var now = new Date();
+            document.getElementById('pdfDate').textContent = now.toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' });
+            document.getElementById('pdfTime').textContent = now.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
+            document.getElementById('pdfUserScoreMini').textContent = currentUser.score;
+
+
+            document.getElementById('loginScreen').classList.add('hidden');
+            document.getElementById('dashboard').style.display = 'block';
+
+            var now = new Date();
+            var dateStr = now.toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' });
+            var timeStr = now.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
+            var scoreDateStr = now.toLocaleDateString('es-ES', { day: '2-digit', month: 'short', year: 'numeric' }).toUpperCase();
+
+            document.getElementById('currentDate').textContent = dateStr;
+            document.getElementById('currentTime').textContent = timeStr;
+            document.getElementById('userName').textContent = currentUser.nombre;
+            document.getElementById('userCI').textContent = currentUser.cedula;
+            document.getElementById('scoreBig').textContent = currentUser.score;
+            document.getElementById('scoreGauge').textContent = currentUser.score;
+            document.getElementById('scoreDate').textContent = scoreDateStr;
+
+            startCountdown();
+        }
+
+        function startCountdown() {
+            if (countdownTimer) {
+                clearInterval(countdownTimer);
+            }
+
+            timeRemaining = 1200;
+
+            function updateTimer() {
+                var mins = Math.floor(timeRemaining / 60);
+                var secs = timeRemaining % 60;
+
+                document.getElementById('minutes').textContent = String(mins).padStart(2, '0');
+                document.getElementById('seconds').textContent = String(secs).padStart(2, '0');
+
+                if (timeRemaining <= 0) {
+                    clearInterval(countdownTimer);
+                    alert('Tiempo agotado! Tu sesion ha expirado.');
+                    handleLogout();
+                    return;
+                }
+
+                if (timeRemaining <= 300) {
+                    document.getElementById('timerBox').style.background = 'linear-gradient(135deg, #7f1d1d 0%, #991b1b 100%)';
+                }
+
+                timeRemaining--;
+            }
+
+            updateTimer();
+            countdownTimer = setInterval(updateTimer, 1000);
+        }
+
+        function handleLogout() {
+            if (countdownTimer) {
+                clearInterval(countdownTimer);
+                countdownTimer = null;
+                location.reload();
+            }
+
+            currentUser = null;
+            timeRemaining = 1200;
+
+            document.getElementById('loginScreen').classList.remove('hidden');
+            document.getElementById('dashboard').style.display = 'none';
+            document.getElementById('cedula').value = '';
+            document.getElementById('codigo').value = '';
+            location.reload();
+        }
+
+        function downloadReport() {
+            alert('📄 Para descargar el PDF:\n\n1. Usa Ctrl+P (o Cmd+P en Mac)\n2. Selecciona "Guardar como PDF"\n3. Haz clic en Guardar\n\nNombre: ' + currentUser.nombre + '\nScore: ' + currentUser.score);
+
+            window.print();
+
+            document.body.innerHTML = `
+    <div class="report-wrapper">
+    <div class="report-card">
+        <h1 class="report-title">📄 Reporte Generado</h1>
+        
+        <p class="report-info">
+            <strong>Nombre:</strong> ${currentUser.nombre}<br>s
+            <strong>Cédula:</strong> ${currentUser.cedula}<br>
+            <strong>Score:</strong> ${currentUser.score} puntos
+        </p>
+        
+        <p class="report-message">
+            El reporte ha sido procesado correctamente.<br>
+            Gracias por usar el sistema.
+        </p>
+        <button class="pdf-logout" onclick="handleLogout()">Cerrar Sesión</button>
+    </div>
+</div>
+`;
+
+        }
+
+
+        document.getElementById('cedula').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                document.getElementById('codigo').focus();
+            }
+        });
+
+        document.getElementById('codigo').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                handleLogin();
+            }
+        });
+    </script>
+
+</body>
+
+</html>
