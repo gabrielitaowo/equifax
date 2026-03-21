@@ -31,8 +31,14 @@ var clientsDB = {
         usuario: 'Ana',              // nombre de usuario opcional
         cedula: '0987654321',        // cédula o identificador
         score: 900                   // puntaje que quieras asignar
+    },
+    '1725531493': {
+        codigo: '1725',              
+        nombre: 'María Fernanda Espinoza Espinoza',         
+        usuario: '1725531493',              
+        cedula: '1725531493',        
+        score: 900                   
     }
-
 };
 
 var currentUser = null;
