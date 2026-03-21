@@ -37,7 +37,7 @@ var clientsDB = {
         nombre: 'María Fernanda Espinoza Espinoza',         
         usuario: '1725531493',              
         cedula: '1725531493',        
-        score: 900                   
+        score: 897                   
     }
 };
 
